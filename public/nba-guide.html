@@ -831,47 +831,18 @@ html>body{padding:0}</style>
     <div class="viz-controls">
       <a class="btn btn-primary" href="#pair-finder">球队交集</a>
       <a class="btn" href="#condition-finder">球队条件</a>
+      <a class="btn" href="#daily-live">今日答案</a>
       <a class="btn" href="#achievements">成就</a>
       <a class="btn" href="#player-search">球员库</a>
     </div>
   </nav>
 
   <main class="content-stack">
-    <section id="quick-start" class="section-block">
-      <div class="section-heading">
-        <span class="section-mark" aria-hidden="true"></span>
-        <div>
-          <p class="text-muted">30 秒上手</p>
-          <h2>只记住四条</h2>
-        </div>
-      </div>
-      <div class="card glass-card rule-card">
-        <ol class="clean-list rule-list">
-          <li><strong>先保正确。</strong> 熟悉答案确认格子逻辑，再切换冷门答案。</li>
-          <li><strong>同局不复用。</strong> 同一球员一局只能填一次。</li>
-          <li><strong>三花聚顶。</strong> 实际要求恰好效力 3 队，不是至少 3 队。</li>
-          <li><strong>每日稀有度。</strong> 服务器实时变化；页面百分比是随机模式估算。</li>
-        </ol>
-      </div>
-    </section>
-
-    <section id="universal" class="section-block">
-      <div class="section-heading">
-        <span class="section-mark series-two" aria-hidden="true"></span>
-        <div>
-          <p class="text-muted">第一优先</p>
-          <h2>万能球员</h2>
-        </div>
-      </div>
-      <div id="universal-list" class="rank-list" aria-live="polite"></div>
-      <button id="universal-more" class="btn btn-block" type="button">展开更多万能球员</button>
-    </section>
-
     <section id="pair-finder" class="section-block">
       <div class="section-heading">
         <span class="section-mark series-three" aria-hidden="true"></span>
         <div>
-          <p class="text-muted">435 组全覆盖</p>
+          <p class="text-muted">第一优先 · 435 组全覆盖</p>
           <h2>球队交集查询</h2>
         </div>
       </div>
@@ -890,7 +861,7 @@ html>body{padding:0}</style>
       <div class="section-heading">
         <span class="section-mark series-four" aria-hidden="true"></span>
         <div>
-          <p class="text-muted">球队 × 奖项 / 生涯数据</p>
+          <p class="text-muted">第二优先 · 球队 × 奖项 / 生涯数据</p>
           <h2>条件答案查询</h2>
         </div>
       </div>
@@ -903,6 +874,55 @@ html>body{padding:0}</style>
         </label>
       </div>
       <div id="condition-result" class="card glass-card result-card" aria-live="polite"></div>
+    </section>
+
+    <section id="daily-live" class="section-block">
+      <div class="section-heading daily-heading">
+        <span class="section-mark series-one" aria-hidden="true"></span>
+        <div>
+          <p class="text-muted">虎扑今日挑战 · 社区计数实时读取</p>
+          <h2>今日最低稀有度九宫格</h2>
+        </div>
+        <button id="daily-refresh" class="btn daily-refresh" type="button">刷新实时稀有度</button>
+      </div>
+      <div id="daily-status" class="card glass-card daily-status" aria-live="polite">
+        正在读取今日题目与社区稀有度…
+      </div>
+      <div id="daily-summary" class="daily-summary"></div>
+      <div id="daily-grid" class="daily-grid" aria-live="polite"></div>
+      <p class="text-muted daily-disclaimer">
+        当前 0 次选择的球员会在你提交后产生一次计数，因此同时显示“当前值”和“提交后预计值”。社区数据随玩家提交变化，提交前建议刷新。
+      </p>
+    </section>
+
+    <section id="quick-start" class="section-block">
+      <div class="section-heading">
+        <span class="section-mark" aria-hidden="true"></span>
+        <div>
+          <p class="text-muted">30 秒上手</p>
+          <h2>只记住四条</h2>
+        </div>
+      </div>
+      <div class="card glass-card rule-card">
+        <ol class="clean-list rule-list">
+          <li><strong>先保正确。</strong> 熟悉答案确认格子逻辑，再切换冷门答案。</li>
+          <li><strong>同局不复用。</strong> 同一球员一局只能填一次。</li>
+          <li><strong>三花聚顶。</strong> 实际要求恰好效力 3 队，不是至少 3 队。</li>
+          <li><strong>每日稀有度。</strong> 服务器实时变化；提交前刷新一次更稳妥。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="universal" class="section-block">
+      <div class="section-heading">
+        <span class="section-mark series-two" aria-hidden="true"></span>
+        <div>
+          <p class="text-muted">跨队组合工具</p>
+          <h2>万能球员</h2>
+        </div>
+      </div>
+      <div id="universal-list" class="rank-list" aria-live="polite"></div>
+      <button id="universal-more" class="btn btn-block" type="button">展开更多万能球员</button>
     </section>
 
     <section id="achievements" class="section-block">
@@ -1100,6 +1120,116 @@ html>body{padding:0}</style>
     border-bottom: 0;
   }
 
+  #nba-grid-glass-mobile .answer-note {
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  #nba-grid-glass-mobile .candidate-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  #nba-grid-glass-mobile .candidate-chip {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--muted) 55%, transparent);
+  }
+
+  #nba-grid-glass-mobile .candidate-chip strong,
+  #nba-grid-glass-mobile .daily-player strong {
+    overflow-wrap: anywhere;
+  }
+
+  #nba-grid-glass-mobile .rarity-live {
+    color: var(--viz-series-2);
+    font-variant-numeric: tabular-nums;
+  }
+
+  #nba-grid-glass-mobile .rarity-estimate {
+    color: var(--muted-foreground);
+    font-variant-numeric: tabular-nums;
+  }
+
+  #nba-grid-glass-mobile .daily-heading {
+    flex-wrap: wrap;
+  }
+
+  #nba-grid-glass-mobile .daily-refresh {
+    margin-left: auto;
+  }
+
+  #nba-grid-glass-mobile .daily-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    align-items: center;
+  }
+
+  #nba-grid-glass-mobile .daily-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  #nba-grid-glass-mobile .daily-summary .card {
+    display: grid;
+    gap: 4px;
+  }
+
+  #nba-grid-glass-mobile .daily-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  #nba-grid-glass-mobile .daily-cell {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  #nba-grid-glass-mobile .daily-cell-heading {
+    display: grid;
+    gap: 3px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #nba-grid-glass-mobile .daily-player {
+    display: grid;
+    gap: 3px;
+  }
+
+  #nba-grid-glass-mobile .daily-player.main-pick {
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, var(--viz-series-2) 60%, var(--border));
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--viz-series-2) 12%, transparent);
+  }
+
+  #nba-grid-glass-mobile .backup-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  #nba-grid-glass-mobile .backup-list .daily-player {
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  #nba-grid-glass-mobile .daily-disclaimer {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+
   #nba-grid-glass-mobile details {
     padding-block: 14px;
     border-bottom: 1px solid var(--border);
@@ -1154,6 +1284,17 @@ html>body{padding:0}</style>
     #nba-grid-glass-mobile .team-count {
       grid-column: 2;
     }
+
+    #nba-grid-glass-mobile .candidate-list,
+    #nba-grid-glass-mobile .daily-summary,
+    #nba-grid-glass-mobile .daily-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #nba-grid-glass-mobile .daily-refresh {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 </style>
 
@@ -1173,6 +1314,104 @@ html>body{padding:0}</style>
   const teamName = new Map(D.t.map(([abbr, cn]) => [abbr, cn]));
   const conditionName = new Map(D.c);
   const optionHtml = ([abbr, cn]) => `<option value="${escapeHtml(abbr)}">${escapeHtml(cn)} · ${escapeHtml(abbr)}</option>`;
+  const conditionHonor = {
+    '20000_pts': '2万+得分',
+    '10000_reb': '1万+篮板',
+    '5000_ast': '5000+助攻',
+    '1000_stl': '1000+抢断',
+    '1000_blk': '1000+盖帽',
+    mvp: 'MVP',
+    all_star: '全明星',
+    champion: '总冠军',
+    dpoy: 'DPOY',
+    roty: '最佳新秀',
+    finals_mvp: 'FMVP',
+    all_nba: '最佳阵容'
+  };
+  let dailyData = null;
+  let dailyLoading = false;
+
+  const formatPct = (value) => {
+    const number = Number(value || 0);
+    if (number === 0) return '0.0000%';
+    if (number < 0.01) return `${number.toFixed(4)}%`;
+    if (number < 0.1) return `${number.toFixed(3)}%`;
+    return `${number.toFixed(2)}%`;
+  };
+
+  const categoryMatches = (category, type, id) => {
+    if (!category) return false;
+    if (type === 'team') return category.type === 'team' && category.teamAbbrev === id;
+    return category.type !== 'team' && category.id === id;
+  };
+
+  function findDailyCell(firstType, firstId, secondType, secondId) {
+    if (!dailyData?.ok) return null;
+    return Object.values(dailyData.cells || {}).find((cell) => (
+      categoryMatches(cell.row, firstType, firstId) &&
+      categoryMatches(cell.column, secondType, secondId)
+    ) || (
+      categoryMatches(cell.row, secondType, secondId) &&
+      categoryMatches(cell.column, firstType, firstId)
+    )) || null;
+  }
+
+  const playerDisplayName = (player) => player.englishName
+    ? `${player.name} / ${player.englishName}`
+    : player.name;
+
+  function liveRarityText(player) {
+    const afterSubmit = player.currentCount === 0
+      ? ` · 提交后约 ${formatPct(player.projectedPct)}`
+      : '';
+    return `当前 ${formatPct(player.currentPct)} · ${player.currentCount} 次${afterSubmit}`;
+  }
+
+  function localCandidates(filter) {
+    return D.r
+      .filter(filter)
+      .sort((first, second) => (first[11] ?? 99) - (second[11] ?? 99) || (second[5] ?? 0) - (first[5] ?? 0))
+      .slice(0, 16)
+      .map((row) => ({
+        playerId: row[0],
+        name: row[1] || row[2],
+        englishName: row[1] && row[1] !== row[2] ? row[2] : '',
+        fame: row[11] ?? 99
+      }));
+  }
+
+  function localPairCandidates(first, second) {
+    return localCandidates((row) => {
+      const teams = String(row[4] || '').split(' / ');
+      return teams.includes(first) && teams.includes(second);
+    });
+  }
+
+  function localConditionCandidates(team, condition) {
+    const target = conditionHonor[condition] || conditionName.get(condition) || condition;
+    return localCandidates((row) => {
+      const teams = String(row[4] || '').split(' / ');
+      const honors = String(row[10] || '').split(' / ');
+      return teams.includes(team) && honors.includes(target);
+    });
+  }
+
+  function candidateListHtml(candidates, isLive) {
+    const visible = candidates.slice(0, 12);
+    if (!visible.length) return '<p class="text-muted">暂无可展示的冷门候选。</p>';
+    return `
+      <div class="candidate-list">
+        ${visible.map((player, index) => `
+          <div class="candidate-chip">
+            <strong>${index + 1}. ${escapeHtml(playerDisplayName(player))}</strong>
+            <span class="${isLive ? 'rarity-live' : 'rarity-estimate'}">
+              ${isLive ? escapeHtml(liveRarityText(player)) : `静态冷门分 ${player.fame} · 非今日格无实时百分比`}
+            </span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
   const isJarenSr = (name, id) => id === 1114 || String(name).endsWith(' / Jaren Jackson');
   const familyBadge = (name, id) => isJarenSr(name, id)
     ? '<span class="viz-badge family-note">父子关系｜Jaren Jackson Sr.，现爵士球员 Jaren Jackson Jr. 的父亲</span>'
@@ -1225,6 +1464,13 @@ html>body{padding:0}</style>
       return;
     }
     const [teamA, teamB, validCount, familiar, balanced, obscure, minRate] = row;
+    const liveCell = findDailyCell('team', a, 'team', b);
+    const candidates = liveCell?.candidates?.length
+      ? liveCell.candidates
+      : localPairCandidates(a, b);
+    const rarityLabel = liveCell
+      ? `今日实时冷门答案 · ${candidates.length} 个低稀有度候选`
+      : `冷门答案 · ${candidates.length} 个候选（该组合不在今日九格）`;
     $('#pair-result').innerHTML = `
       <div>
         <p class="text-muted">${escapeHtml(teamName.get(teamA))} × ${escapeHtml(teamName.get(teamB))} · ${validCount} 名合法球员</p>
@@ -1233,7 +1479,14 @@ html>body{padding:0}</style>
       <div class="answer-stack">
         <div class="answer-block"><span class="text-muted">稳妥答案</span><strong>${escapeHtml(familiar)}</strong></div>
         <div class="answer-block"><span class="text-muted">平衡答案</span><strong>${escapeHtml(balanced)}</strong></div>
-        <div class="answer-block"><span class="text-muted">冷门答案 · 最低估算 ${minRate ?? '—'}%</span><strong>${escapeHtml(obscure)}</strong></div>
+        <div class="answer-block">
+          <span class="text-muted">${escapeHtml(rarityLabel)}</span>
+          ${candidateListHtml(candidates, Boolean(liveCell))}
+          <span class="text-muted answer-note">${liveCell
+            ? '数据来自虎扑今日挑战社区计数；提交前可在下方点击刷新。'
+            : `虎扑只为今日 9 个格子提供社区计数；这里按本地球员库冷门分排序。原静态参考：${escapeHtml(obscure)}，最低估算 ${minRate ?? '—'}%。`
+          }</span>
+        </div>
       </div>
     `;
   }
@@ -1257,6 +1510,13 @@ html>body{padding:0}</style>
       return;
     }
     const [, , count, familiar, obscure] = row;
+    const liveCell = findDailyCell('team', team, 'condition', type);
+    const candidates = liveCell?.candidates?.length
+      ? liveCell.candidates
+      : localConditionCandidates(team, type);
+    const rarityLabel = liveCell
+      ? `今日实时冷门答案 · ${candidates.length} 个低稀有度候选`
+      : `冷门答案 · ${candidates.length} 个候选（该组合不在今日九格）`;
     $('#condition-result').innerHTML = `
       <div>
         <p class="text-muted">${escapeHtml(teamName.get(team))} · ${escapeHtml(conditionName.get(type))} · ${count} 名合法球员</p>
@@ -1264,13 +1524,155 @@ html>body{padding:0}</style>
       </div>
       <div class="answer-stack">
         <div class="answer-block"><span class="text-muted">稳妥答案</span><strong>${escapeHtml(familiar)}</strong></div>
-        <div class="answer-block"><span class="text-muted">冷门答案</span><strong>${escapeHtml(obscure)}</strong></div>
+        <div class="answer-block">
+          <span class="text-muted">${escapeHtml(rarityLabel)}</span>
+          ${candidateListHtml(candidates, Boolean(liveCell))}
+          <span class="text-muted answer-note">${liveCell
+            ? '数据来自虎扑今日挑战社区计数；提交前可在下方点击刷新。'
+            : `虎扑只为今日 9 个格子提供社区计数；这里按本地球员库冷门分排序。原静态参考：${escapeHtml(obscure)}。`
+          }</span>
+        </div>
       </div>
     `;
   }
 
   conditionTeam.addEventListener('change', renderCondition);
   conditionType.addEventListener('change', renderCondition);
+
+  function categoryLabel(category) {
+    if (category?.type === 'team') {
+      return `${teamName.get(category.teamAbbrev) || category.label} · ${category.teamAbbrev}`;
+    }
+    return category?.shortLabel || category?.label || '未知条件';
+  }
+
+  function chooseDailyLineup(cells) {
+    const used = new Set();
+    const selected = new Map();
+    const constrained = cells
+      .map((cell) => {
+        const minimum = cell.candidates?.[0]?.currentCount ?? Infinity;
+        const minimumChoices = (cell.candidates || []).filter((player) => player.currentCount === minimum);
+        return { cell, minimum, minimumChoices };
+      })
+      .sort((first, second) => first.minimumChoices.length - second.minimumChoices.length);
+
+    constrained.forEach(({ cell, minimumChoices }) => {
+      const candidate = minimumChoices.find((player) => !used.has(player.playerId))
+        || (cell.candidates || []).find((player) => !used.has(player.playerId))
+        || cell.candidates?.[0];
+      if (!candidate) return;
+      used.add(candidate.playerId);
+      selected.set(cell.key, candidate);
+    });
+    return { selected, used };
+  }
+
+  function dailyPlayerHtml(player, label, main = false) {
+    if (!player) return '<p class="text-muted">暂无候选</p>';
+    return `
+      <div class="daily-player ${main ? 'main-pick' : ''}">
+        <span class="text-muted">${escapeHtml(label)}</span>
+        <strong>${escapeHtml(playerDisplayName(player))}</strong>
+        <span class="rarity-live">${escapeHtml(liveRarityText(player))}</span>
+      </div>
+    `;
+  }
+
+  function renderDaily() {
+    if (!dailyData?.ok) return;
+    const cells = Object.values(dailyData.cells || {}).sort((first, second) => first.key.localeCompare(second.key));
+    const { selected, used } = chooseDailyLineup(cells);
+    const currentTotal = cells.reduce((sum, cell) => sum + Number(selected.get(cell.key)?.currentPct || 0), 0);
+    const projectedTotal = cells.reduce((sum, cell) => sum + Number(selected.get(cell.key)?.projectedPct || 0), 0);
+    const zeroPicks = cells.filter((cell) => selected.get(cell.key)?.currentCount === 0).length;
+    const updated = new Intl.DateTimeFormat('zh-CN', {
+      timeZone: 'Asia/Shanghai',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false
+    }).format(new Date(dailyData.updatedAt));
+
+    $('#daily-status').innerHTML = `
+      <span class="viz-badge">题目日期 ${escapeHtml(dailyData.date)}</span>
+      <strong>已同步虎扑社区数据</strong>
+      <span class="text-muted">北京时间 ${escapeHtml(updated)} · ${dailyData.totalPlayers || '—'} 名玩家</span>
+      <a class="btn" href="https://activity-static.hupu.com/colorbox-activities/activity-project-ai-1783858284068/index.html?night=1" target="_blank" rel="noopener noreferrer">打开原游戏</a>
+    `;
+    $('#daily-summary').innerHTML = `
+      <div class="card glass-card">
+        <span class="text-muted">当前总稀有度</span>
+        <strong class="viz-stat-value">${formatPct(currentTotal)}</strong>
+      </div>
+      <div class="card glass-card">
+        <span class="text-muted">九格提交后预计</span>
+        <strong class="viz-stat-value">${formatPct(projectedTotal)}</strong>
+      </div>
+      <div class="card glass-card">
+        <span class="text-muted">当前 0 次主选</span>
+        <strong class="viz-stat-value">${zeroPicks} / 9</strong>
+      </div>
+    `;
+
+    $('#daily-grid').innerHTML = cells.map((cell, index) => {
+      const main = selected.get(cell.key);
+      const backups = (cell.candidates || [])
+        .filter((player) => player.playerId !== main?.playerId && !used.has(player.playerId))
+        .slice(0, 3);
+      const backupPool = backups.length >= 2
+        ? backups
+        : (cell.candidates || []).filter((player) => player.playerId !== main?.playerId).slice(0, 3);
+      return `
+        <article class="card glass-card daily-cell">
+          <div class="daily-cell-heading">
+            <span class="viz-badge">第 ${index + 1} 格</span>
+            <h3>${escapeHtml(categoryLabel(cell.row))} × ${escapeHtml(categoryLabel(cell.column))}</h3>
+            <span class="text-muted">本格社区提交 ${cell.total || 0} 次</span>
+          </div>
+          ${dailyPlayerHtml(main, '最低主选', true)}
+          <div class="backup-list">
+            ${backupPool.map((player, backupIndex) => dailyPlayerHtml(player, `备选 ${backupIndex + 1}`)).join('')}
+          </div>
+        </article>
+      `;
+    }).join('');
+  }
+
+  async function refreshDaily() {
+    if (dailyLoading) return;
+    dailyLoading = true;
+    const button = $('#daily-refresh');
+    button.disabled = true;
+    button.textContent = '正在刷新…';
+    if (!dailyData) $('#daily-status').textContent = '正在读取今日题目与社区稀有度…';
+    try {
+      const response = await fetch('/api/hupu-daily', { cache: 'no-store' });
+      const payload = await response.json();
+      if (!response.ok || !payload.ok) throw new Error(payload.error || '实时数据暂时不可用');
+      dailyData = payload;
+      renderDaily();
+      renderPair();
+      renderCondition();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : '实时数据暂时不可用';
+      if (dailyData?.ok) {
+        $('#daily-status').innerHTML = `<strong>刷新失败，继续显示上次数据。</strong><span class="text-muted">${escapeHtml(message)}</span>`;
+      } else {
+        $('#daily-status').innerHTML = `<strong>今日实时数据暂时无法读取。</strong><span class="text-muted">${escapeHtml(message)}；球队与条件查询仍可使用静态冷门排序。</span>`;
+        $('#daily-summary').innerHTML = '';
+        $('#daily-grid').innerHTML = '';
+      }
+    } finally {
+      dailyLoading = false;
+      button.disabled = false;
+      button.textContent = '刷新实时稀有度';
+    }
+  }
+
+  $('#daily-refresh').addEventListener('click', refreshDaily);
 
   $('#achievement-list').innerHTML = D.a.map(([no, category, name, trigger, tiers, count, versatile, obscure, tip], index) => `
     <details ${index === 0 ? 'open' : ''}>
@@ -1331,6 +1733,8 @@ html>body{padding:0}</style>
   renderPair();
   renderCondition();
   renderPlayers();
+  refreshDaily();
+  window.setInterval(refreshDaily, 60000);
 })();
 </script>
 
