@@ -45,8 +45,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Home() {
   return (
     <main className="app-shell">
-      <a className="skip-link" href="/nba-guide.html#pair-finder">
-        直接进入球队交集查询
+      <a className="skip-link" href="/nba-guide.html#daily-live">
+        直接进入今日最低稀有度九宫格
       </a>
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
