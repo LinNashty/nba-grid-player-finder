@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src 'self' blob: data:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src 'self' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src 'self' blob: data:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>NBA 梦幻九宫格球员查询</title>
 <style>:root {
   color-scheme: dark;
@@ -803,41 +803,60 @@ html>body{padding:0}</style>
 </head>
 <body>
 <div id="nba-grid-glass-mobile">
-  <header class="hero-block">
-    <p class="text-muted">PLAYER GRID · QUERY TOOL</p>
-    <h1>九宫格答案，一次查清</h1>
-    <p>球队交集、条件答案、成就口径和 5,135 人球员库，一站直达。</p>
+  <header class="premium-hero">
+    <nav class="hero-nav" aria-label="首屏导航">
+      <a class="hero-brand" href="#daily-live">
+        <span class="hero-brand-mark">N9</span>
+        <span>NBA 梦幻九宫格</span>
+      </a>
+      <span id="hero-live" class="hero-live"><i class="live-dot" aria-hidden="true"></i>正在连接今日数据</span>
+    </nav>
+    <div class="hero-content">
+      <p class="hero-eyebrow">THE DAILY EDIT</p>
+      <h1>让每一次选择，<br>都更稀有。</h1>
+      <p class="hero-copy">为梦幻九宫格玩家准备的每日精选。零人答案、实时稀有度与热门选择，一眼看清。</p>
+      <div class="hero-actions">
+        <a class="btn hero-primary" href="#daily-live">打开今日精选</a>
+        <span class="hero-metric"><strong id="hero-rarity">读取中</strong>九格当前目标值</span>
+      </div>
+    </div>
   </header>
-
-  <div class="viz-grid metrics" aria-label="数据规模">
-    <div class="card viz-stat glass-card">
-      <span class="text-muted">球员库</span>
-      <span class="viz-stat-value">5,135</span>
-      <span>完整搜索索引</span>
-    </div>
-    <div class="card viz-stat glass-card">
-      <span class="text-muted">球队组合</span>
-      <span class="viz-stat-value">435</span>
-      <span>全量交集答案</span>
-    </div>
-    <div class="card viz-stat glass-card">
-      <span class="text-muted">核心成就</span>
-      <span class="viz-stat-value">17</span>
-      <span>按脚本真实口径</span>
-    </div>
-  </div>
 
   <nav class="card glass-card sticky-nav" aria-label="页面导航">
     <div class="viz-controls">
-      <a class="btn btn-primary" href="#pair-finder">球队交集</a>
+      <a class="btn btn-primary" href="#daily-live">今日答案</a>
+      <a class="btn" href="#pair-finder">球队交集</a>
       <a class="btn" href="#condition-finder">球队条件</a>
-      <a class="btn" href="#daily-live">今日答案</a>
       <a class="btn" href="#achievements">成就</a>
       <a class="btn" href="#player-search">球员库</a>
     </div>
   </nav>
 
   <main class="content-stack">
+    <section id="daily-live" class="section-block daily-section">
+      <div class="section-heading daily-heading">
+        <span class="section-mark series-two" aria-hidden="true"></span>
+        <div>
+          <p class="text-muted">虎扑当前谜题 · 社区计数实时读取</p>
+          <h2>今日最低稀有度九宫格</h2>
+        </div>
+        <button id="daily-refresh" class="btn daily-refresh" type="button">刷新实时数据</button>
+      </div>
+      <div id="daily-status" class="card glass-card daily-status" aria-live="polite">
+        正在读取当前题目与社区稀有度…
+      </div>
+      <div id="daily-summary" class="daily-summary"></div>
+      <div class="daily-dashboard">
+        <div id="daily-grid" class="daily-grid glass-card" aria-live="polite"></div>
+        <aside id="daily-detail" class="card glass-card daily-detail" aria-live="polite">
+          <p class="text-muted">选择九宫格中的任意一格查看推荐。</p>
+        </aside>
+      </div>
+      <p class="text-muted daily-disclaimer">
+        0 人选择代表当前最低稀有度，并始终优先。真实比例会随玩家提交变化，提交前建议刷新。
+      </p>
+    </section>
+
     <section id="pair-finder" class="section-block">
       <div class="section-heading">
         <span class="section-mark series-three" aria-hidden="true"></span>
@@ -874,25 +893,6 @@ html>body{padding:0}</style>
         </label>
       </div>
       <div id="condition-result" class="card glass-card result-card" aria-live="polite"></div>
-    </section>
-
-    <section id="daily-live" class="section-block">
-      <div class="section-heading daily-heading">
-        <span class="section-mark series-one" aria-hidden="true"></span>
-        <div>
-          <p class="text-muted">虎扑今日挑战 · 社区计数实时读取</p>
-          <h2>今日最低稀有度九宫格</h2>
-        </div>
-        <button id="daily-refresh" class="btn daily-refresh" type="button">刷新实时稀有度</button>
-      </div>
-      <div id="daily-status" class="card glass-card daily-status" aria-live="polite">
-        正在读取今日题目与社区稀有度…
-      </div>
-      <div id="daily-summary" class="daily-summary"></div>
-      <div id="daily-grid" class="daily-grid" aria-live="polite"></div>
-      <p class="text-muted daily-disclaimer">
-        当前 0 次选择的球员会在你提交后产生一次计数，因此同时显示“当前值”和“提交后预计值”。社区数据随玩家提交变化，提交前建议刷新。
-      </p>
     </section>
 
     <section id="quick-start" class="section-block">
@@ -1298,6 +1298,660 @@ html>body{padding:0}</style>
   }
 </style>
 
+<style>
+  :root[data-theme="dark"] {
+    --background: #0d0e10;
+    --foreground: #f2eee5;
+    --card: rgba(38, 37, 34, 0.72);
+    --primary: #c7a86d;
+    --primary-foreground: #171410;
+    --muted: rgba(242, 238, 229, 0.06);
+    --muted-foreground: #aaa59b;
+    --border: rgba(245, 238, 222, 0.13);
+    --ring: rgba(218, 191, 138, 0.82);
+    --viz-series-1: #d6bd8d;
+    --viz-series-2: #c7a86d;
+    --viz-series-3: #9dbfae;
+    --viz-series-4: #c9a5a1;
+    --viz-series-5: #aaa4c9;
+    --viz-series-6: #9eb6bd;
+  }
+
+  html,
+  html > body {
+    background: #0d0e10 !important;
+    color: #f2eee5;
+  }
+
+  html > body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+  }
+
+  #nba-grid-glass-mobile {
+    --font-size-base: 16px;
+    width: min(100%, 1040px);
+    margin-inline: auto;
+    gap: 24px;
+    padding: 0 22px;
+    color: #f2eee5;
+  }
+
+  #nba-grid-glass-mobile .premium-hero {
+    position: relative;
+    display: flex;
+    min-height: min(680px, 91vh);
+    margin-inline: -22px;
+    padding: 26px 44px 54px;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid rgba(245, 238, 222, 0.11);
+    border-top: 0;
+    border-radius: 0 0 34px 34px;
+    background: #101113 url('/arena.png') 64% 60% / cover no-repeat;
+    box-shadow: 0 34px 110px rgba(0, 0, 0, 0.38);
+  }
+
+  #nba-grid-glass-mobile .premium-hero::before,
+  #nba-grid-glass-mobile .premium-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  #nba-grid-glass-mobile .premium-hero::before {
+    z-index: -2;
+    background:
+      radial-gradient(circle at 76% 26%, rgba(199, 168, 109, 0.16), transparent 34%),
+      linear-gradient(180deg, rgba(12, 12, 13, 0.18), rgba(12, 12, 13, 0.58) 56%, #0d0e10 100%),
+      linear-gradient(90deg, rgba(12, 12, 13, 0.9), transparent 78%);
+  }
+
+  #nba-grid-glass-mobile .premium-hero::after {
+    z-index: -1;
+    opacity: 0.16;
+    background: linear-gradient(110deg, transparent 42%, rgba(255, 244, 220, 0.12) 50%, transparent 58%);
+    transform: translateX(-110%);
+    animation: heroSheen 8s ease-in-out 1.2s infinite;
+  }
+
+  #nba-grid-glass-mobile .hero-nav {
+    position: absolute;
+    inset: 24px 42px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  #nba-grid-glass-mobile .hero-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    color: #f2eee5;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  #nba-grid-glass-mobile .hero-brand-mark {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border: 1px solid rgba(214, 189, 141, 0.54);
+    border-radius: 12px;
+    background: rgba(199, 168, 109, 0.14);
+    color: #e4cfa7;
+    font-family: Georgia, serif;
+    font-weight: 700;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  }
+
+  #nba-grid-glass-mobile .hero-live,
+  #nba-grid-glass-mobile .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    padding: 8px 12px;
+    border: 1px solid rgba(245, 238, 222, 0.15);
+    border-radius: 999px;
+    background: rgba(12, 12, 13, 0.58);
+    color: #b8b1a5;
+    font-size: 0.75rem;
+    backdrop-filter: blur(18px);
+  }
+
+  #nba-grid-glass-mobile .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #83caa5;
+    box-shadow: 0 0 0 5px rgba(131, 202, 165, 0.11);
+    animation: livePulse 2s ease-in-out infinite;
+  }
+
+  #nba-grid-glass-mobile .hero-content {
+    align-self: flex-end;
+    display: grid;
+    gap: 16px;
+    width: min(690px, 100%);
+  }
+
+  #nba-grid-glass-mobile .hero-eyebrow,
+  #nba-grid-glass-mobile .section-kicker {
+    color: #d6bd8d;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+  }
+
+  #nba-grid-glass-mobile .premium-hero h1 {
+    margin: 0;
+    color: #f3efe7;
+    font-family: Georgia, "Songti SC", serif;
+    font-size: clamp(3.2rem, 8vw, 6.1rem);
+    font-weight: 500;
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  #nba-grid-glass-mobile .hero-copy {
+    max-width: 36rem;
+    color: #c4bdb2;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  #nba-grid-glass-mobile .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 6px;
+  }
+
+  #nba-grid-glass-mobile .hero-primary {
+    border-color: #c7a86d;
+    background: #c7a86d;
+    color: #171410;
+    font-weight: 750;
+    box-shadow: 0 18px 44px rgba(125, 94, 48, 0.28);
+  }
+
+  #nba-grid-glass-mobile .hero-metric {
+    display: grid;
+    color: #9f988e;
+    font-size: 0.7rem;
+  }
+
+  #nba-grid-glass-mobile .hero-metric strong {
+    color: #f2eee5;
+    font-family: Georgia, serif;
+    font-size: 1.7rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #nba-grid-glass-mobile .glass-card,
+  #nba-grid-glass-mobile .card {
+    border-color: rgba(245, 238, 222, 0.13);
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(45, 43, 39, 0.72), rgba(17, 17, 18, 0.66));
+    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(24px) saturate(135%);
+    -webkit-backdrop-filter: blur(24px) saturate(135%);
+  }
+
+  #nba-grid-glass-mobile .sticky-nav {
+    top: 8px;
+    margin-top: -6px;
+    padding: 9px;
+    border-radius: 20px;
+  }
+
+  #nba-grid-glass-mobile .sticky-nav .viz-controls {
+    gap: 7px;
+  }
+
+  #nba-grid-glass-mobile .btn {
+    min-height: 42px;
+    border-color: rgba(245, 238, 222, 0.14);
+    border-radius: 12px;
+    background: rgba(245, 238, 222, 0.045);
+    color: #d7d0c5;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  #nba-grid-glass-mobile .btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(214, 189, 141, 0.46);
+    background: rgba(199, 168, 109, 0.1);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.19);
+    text-decoration: none;
+  }
+
+  #nba-grid-glass-mobile .btn:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  #nba-grid-glass-mobile .btn-primary,
+  #nba-grid-glass-mobile .btn[aria-selected="true"] {
+    border-color: #c7a86d;
+    background: #c7a86d;
+    color: #171410;
+  }
+
+  #nba-grid-glass-mobile .content-stack {
+    gap: 38px;
+  }
+
+  #nba-grid-glass-mobile .section-block {
+    gap: 16px;
+    scroll-margin-top: 86px;
+    padding-block: 14px;
+  }
+
+  #nba-grid-glass-mobile .section-heading h2 {
+    color: #f2eee5;
+    font-family: Georgia, "Songti SC", serif;
+    font-size: clamp(2rem, 4.6vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+
+  #nba-grid-glass-mobile .section-mark {
+    width: 4px;
+    height: 46px;
+    background: #c7a86d;
+  }
+
+  #nba-grid-glass-mobile .daily-status {
+    min-height: 58px;
+    padding: 13px 16px;
+  }
+
+  #nba-grid-glass-mobile .daily-summary {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #nba-grid-glass-mobile .daily-summary .card {
+    padding: 15px 17px;
+  }
+
+  #nba-grid-glass-mobile .daily-summary .viz-stat-value {
+    color: #e0c796;
+    font-family: Georgia, serif;
+    font-size: 1.7rem;
+  }
+
+  #nba-grid-glass-mobile .daily-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    gap: 16px;
+    align-items: start;
+  }
+
+  #nba-grid-glass-mobile .daily-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    padding: 12px;
+  }
+
+  #nba-grid-glass-mobile .daily-cell-button {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    min-height: 146px;
+    align-content: center;
+    gap: 7px;
+    padding: 20px 10px 13px;
+    overflow: hidden;
+    border: 1px solid rgba(245, 238, 222, 0.1);
+    border-radius: 18px;
+    background: rgba(245, 238, 222, 0.025);
+    color: #f2eee5;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+  }
+
+  #nba-grid-glass-mobile .daily-cell-button:hover,
+  #nba-grid-glass-mobile .daily-cell-button.is-active {
+    transform: translateY(-2px);
+    border-color: rgba(199, 168, 109, 0.6);
+    background: rgba(199, 168, 109, 0.09);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.2);
+  }
+
+  #nba-grid-glass-mobile .daily-cell-button:active {
+    transform: scale(0.97);
+  }
+
+  #nba-grid-glass-mobile .cell-index {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: #777168;
+    font-family: Georgia, serif;
+    font-size: 0.68rem;
+  }
+
+  #nba-grid-glass-mobile .cell-prompt {
+    color: #aba397;
+    font-size: 0.68rem;
+    line-height: 1.4;
+  }
+
+  #nba-grid-glass-mobile .cell-player {
+    overflow-wrap: anywhere;
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
+
+  #nba-grid-glass-mobile .cell-rarity-value,
+  #nba-grid-glass-mobile .rarity-live {
+    color: #d6bd8d;
+    font-family: Georgia, serif;
+    font-variant-numeric: tabular-nums;
+  }
+
+  #nba-grid-glass-mobile .zero-value {
+    color: #8fd0ad;
+  }
+
+  #nba-grid-glass-mobile .daily-detail {
+    display: grid;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  #nba-grid-glass-mobile .detail-heading {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(245, 238, 222, 0.11);
+  }
+
+  #nba-grid-glass-mobile .detail-heading h3 {
+    color: #f2eee5;
+    font-size: 1rem;
+  }
+
+  #nba-grid-glass-mobile .detail-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+
+  #nba-grid-glass-mobile .detail-tabs .btn {
+    padding-inline: 10px;
+    font-size: 0.78rem;
+  }
+
+  #nba-grid-glass-mobile .daily-choice-list {
+    display: grid;
+    gap: 8px;
+  }
+
+  #nba-grid-glass-mobile .daily-choice {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 9px;
+    align-items: center;
+    padding: 11px 12px;
+    border: 1px solid rgba(245, 238, 222, 0.075);
+    border-radius: 13px;
+    background: rgba(245, 238, 222, 0.025);
+  }
+
+  #nba-grid-glass-mobile .daily-choice.is-main,
+  #nba-grid-glass-mobile .daily-choice.is-zero {
+    border-color: rgba(199, 168, 109, 0.46);
+    background: rgba(199, 168, 109, 0.075);
+  }
+
+  #nba-grid-glass-mobile .choice-rank {
+    color: #746f67;
+    font-family: Georgia, serif;
+    font-size: 0.7rem;
+  }
+
+  #nba-grid-glass-mobile .choice-copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  #nba-grid-glass-mobile .choice-copy strong {
+    overflow-wrap: anywhere;
+    font-size: 0.8rem;
+  }
+
+  #nba-grid-glass-mobile .choice-copy span,
+  #nba-grid-glass-mobile .choice-count {
+    color: #9f988e;
+    font-size: 0.68rem;
+  }
+
+  #nba-grid-glass-mobile .choice-count {
+    color: #d6bd8d;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  #nba-grid-glass-mobile .choice-count.is-zero {
+    color: #8fd0ad;
+  }
+
+  #nba-grid-glass-mobile .candidate-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+  }
+
+  #nba-grid-glass-mobile .candidate-chip {
+    border-color: rgba(245, 238, 222, 0.1);
+    border-radius: 15px;
+    background: rgba(245, 238, 222, 0.026);
+    transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+  }
+
+  #nba-grid-glass-mobile .candidate-chip:hover {
+    transform: translateY(-2px);
+    border-color: rgba(199, 168, 109, 0.36);
+    background: rgba(199, 168, 109, 0.055);
+  }
+
+  #nba-grid-glass-mobile .form-select,
+  #nba-grid-glass-mobile .form-control {
+    min-height: 48px;
+    border-color: rgba(245, 238, 222, 0.13);
+    border-radius: 14px;
+    background-color: rgba(245, 238, 222, 0.045);
+    color: #f2eee5;
+    transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  }
+
+  #nba-grid-glass-mobile .form-select:focus,
+  #nba-grid-glass-mobile .form-control:focus {
+    border-color: rgba(199, 168, 109, 0.72);
+    background-color: rgba(199, 168, 109, 0.06);
+    box-shadow: 0 0 0 4px rgba(199, 168, 109, 0.1);
+  }
+
+  #nba-grid-glass-mobile .result-card,
+  #nba-grid-glass-mobile .rule-card {
+    padding: 20px;
+  }
+
+  #nba-grid-glass-mobile .rank-row,
+  #nba-grid-glass-mobile .player-row {
+    border-bottom-color: rgba(245, 238, 222, 0.1);
+  }
+
+  #nba-grid-glass-mobile .rank-number {
+    background: rgba(199, 168, 109, 0.09);
+    color: #d6bd8d;
+  }
+
+  #nba-grid-glass-mobile .daily-disclaimer,
+  #nba-grid-glass-mobile .footer-note {
+    color: #817b72;
+  }
+
+  @keyframes livePulse {
+    50% { opacity: 0.5; transform: scale(0.82); }
+  }
+
+  @keyframes heroSheen {
+    0%, 62% { transform: translateX(-110%); }
+    80%, 100% { transform: translateX(110%); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #nba-grid-glass-mobile .hero-content > * {
+      animation: contentRise 620ms ease both;
+    }
+
+    #nba-grid-glass-mobile .hero-content > *:nth-child(2) { animation-delay: 70ms; }
+    #nba-grid-glass-mobile .hero-content > *:nth-child(3) { animation-delay: 140ms; }
+    #nba-grid-glass-mobile .hero-content > *:nth-child(4) { animation-delay: 210ms; }
+
+    @keyframes contentRise {
+      from { opacity: 0; transform: translateY(18px); }
+    }
+  }
+
+  @media (max-width: 767px) {
+    #nba-grid-glass-mobile {
+      padding-inline: 12px;
+      gap: 18px;
+    }
+
+    #nba-grid-glass-mobile .premium-hero {
+      min-height: 620px;
+      margin-inline: -12px;
+      padding: 18px 24px 42px;
+      border-radius: 0 0 28px 28px;
+      background-position: 62% 56%;
+    }
+
+    #nba-grid-glass-mobile .hero-nav {
+      inset: 18px 22px auto;
+    }
+
+    #nba-grid-glass-mobile .hero-live {
+      padding: 7px 9px;
+      font-size: 0.64rem;
+    }
+
+    #nba-grid-glass-mobile .premium-hero h1 {
+      font-size: clamp(3rem, 14vw, 4.4rem);
+    }
+
+    #nba-grid-glass-mobile .hero-copy {
+      max-width: 22rem;
+      font-size: 0.86rem;
+    }
+
+    #nba-grid-glass-mobile .daily-dashboard {
+      grid-template-columns: 1fr;
+    }
+
+    #nba-grid-glass-mobile .daily-cell-button {
+      min-height: 118px;
+      padding-inline: 7px;
+    }
+
+    #nba-grid-glass-mobile .cell-prompt {
+      font-size: 0.6rem;
+    }
+
+    #nba-grid-glass-mobile .cell-player {
+      font-size: 0.75rem;
+    }
+
+    #nba-grid-glass-mobile .candidate-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    #nba-grid-glass-mobile .hero-brand {
+      font-size: 0.78rem;
+    }
+
+    #nba-grid-glass-mobile .hero-brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+    }
+
+    #nba-grid-glass-mobile .hero-live {
+      max-width: 126px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #nba-grid-glass-mobile .hero-actions {
+      gap: 12px;
+    }
+
+    #nba-grid-glass-mobile .hero-primary {
+      padding-inline: 14px;
+      font-size: 0.78rem;
+    }
+
+    #nba-grid-glass-mobile .daily-summary {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    #nba-grid-glass-mobile .daily-summary .card:last-child {
+      grid-column: 1 / -1;
+    }
+
+    #nba-grid-glass-mobile .daily-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px;
+      padding: 8px;
+      border-radius: 20px;
+    }
+
+    #nba-grid-glass-mobile .daily-cell-button {
+      min-height: 108px;
+      border-radius: 14px;
+    }
+
+    #nba-grid-glass-mobile .daily-detail {
+      padding: 16px;
+      border-radius: 20px;
+    }
+
+    #nba-grid-glass-mobile .daily-refresh {
+      min-width: 100%;
+    }
+
+    #nba-grid-glass-mobile .sticky-nav .btn {
+      flex: 1 1 30%;
+      min-height: 38px;
+      font-size: 0.72rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #nba-grid-glass-mobile *,
+    #nba-grid-glass-mobile *::before,
+    #nba-grid-glass-mobile *::after {
+      scroll-behavior: auto !important;
+      animation: none !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
 <script>
 (() => {
   document.documentElement.dataset.theme = 'dark';
@@ -1330,10 +1984,12 @@ html>body{padding:0}</style>
   };
   let dailyData = null;
   let dailyLoading = false;
+  let activeDailyCellKey = '0_0';
+  let dailyDetailTab = 'low';
 
   const formatPct = (value) => {
     const number = Number(value || 0);
-    if (number === 0) return '0.0000%';
+    if (number === 0) return '0%';
     if (number < 0.01) return `${number.toFixed(4)}%`;
     if (number < 0.1) return `${number.toFixed(3)}%`;
     return `${number.toFixed(2)}%`;
@@ -1364,7 +2020,8 @@ html>body{padding:0}</style>
     const afterSubmit = player.currentCount === 0
       ? ` · 提交后约 ${formatPct(player.projectedPct)}`
       : '';
-    return `当前 ${formatPct(player.currentPct)} · ${player.currentCount} 次${afterSubmit}`;
+    if (player.currentCount === 0) return `0 人选择${afterSubmit}`;
+    return `当前 ${formatPct(player.currentPct)} · ${player.currentCount} 人选择`;
   }
 
   function localCandidates(filter) {
@@ -1402,10 +2059,10 @@ html>body{padding:0}</style>
     return `
       <div class="candidate-list">
         ${visible.map((player, index) => `
-          <div class="candidate-chip">
+          <div class="candidate-chip ${isLive && player.currentCount === 0 ? 'is-zero' : ''}">
             <strong>${index + 1}. ${escapeHtml(playerDisplayName(player))}</strong>
             <span class="${isLive ? 'rarity-live' : 'rarity-estimate'}">
-              ${isLive ? escapeHtml(liveRarityText(player)) : `静态冷门分 ${player.fame} · 非今日格无实时百分比`}
+              ${isLive ? escapeHtml(liveRarityText(player)) : `冷门推荐分 ${player.fame} · 非今日格无实时百分比`}
             </span>
           </div>
         `).join('')}
@@ -1568,21 +2225,72 @@ html>body{padding:0}</style>
     return { selected, used };
   }
 
-  function dailyPlayerHtml(player, label, main = false) {
-    if (!player) return '<p class="text-muted">暂无候选</p>';
+  function dailyChoiceHtml(player, index, main = false, popular = false) {
+    if (!player) return '';
+    const isZero = player.currentCount === 0;
+    const label = popular
+      ? `热门第 ${index + 1} 名`
+      : main
+        ? '本格主推荐'
+        : isZero
+          ? '零人备选'
+          : '低稀有度备选';
+    const countText = isZero ? '0 人' : `${player.currentCount} 人`;
     return `
-      <div class="daily-player ${main ? 'main-pick' : ''}">
-        <span class="text-muted">${escapeHtml(label)}</span>
-        <strong>${escapeHtml(playerDisplayName(player))}</strong>
-        <span class="rarity-live">${escapeHtml(liveRarityText(player))}</span>
+      <div class="daily-choice ${main ? 'is-main' : ''} ${isZero ? 'is-zero' : ''}">
+        <span class="choice-rank">${String(index + 1).padStart(2, '0')}</span>
+        <span class="choice-copy">
+          <strong>${escapeHtml(playerDisplayName(player))}</strong>
+          <span>${escapeHtml(label)} · ${escapeHtml(formatPct(player.currentPct))}</span>
+        </span>
+        <strong class="choice-count ${isZero ? 'is-zero' : ''}">${escapeHtml(countText)}</strong>
       </div>
+    `;
+  }
+
+  function renderDailyDetail(cells, selected) {
+    const cell = cells.find((item) => item.key === activeDailyCellKey) || cells[0];
+    if (!cell) return;
+    activeDailyCellKey = cell.key;
+    const main = selected.get(cell.key) || cell.candidates?.[0];
+    const lowChoices = [
+      main,
+      ...(cell.candidates || []).filter((player) => player.playerId !== main?.playerId)
+    ].filter(Boolean).slice(0, 10);
+    const popularChoices = (cell.popularCandidates || []).slice(0, 5);
+    const choices = dailyDetailTab === 'popular' ? popularChoices : lowChoices;
+    const sampleNote = cell.total < 10
+      ? '<span class="text-muted">样本不足，排名可能波动</span>'
+      : `<span class="text-muted">本格 ${cell.total || 0} 次填写 · ${cell.candidateCount || lowChoices.length} 名合法候选</span>`;
+
+    $('#daily-detail').innerHTML = `
+      <div class="detail-heading">
+        <div>
+          <p class="text-muted">第 ${Number(cell.rowIndex ?? String(cell.key).split('_')[0]) * 3 + Number(cell.columnIndex ?? String(cell.key).split('_')[1]) + 1} 格详情</p>
+          <h3>${escapeHtml(categoryLabel(cell.row))} × ${escapeHtml(categoryLabel(cell.column))}</h3>
+        </div>
+        <span class="live-badge"><i class="live-dot" aria-hidden="true"></i>实时</span>
+      </div>
+      <div class="detail-tabs" role="tablist" aria-label="答案排序">
+        <button class="btn" type="button" data-daily-tab="low" aria-selected="${dailyDetailTab === 'low'}">最低稀有度</button>
+        <button class="btn" type="button" data-daily-tab="popular" aria-selected="${dailyDetailTab === 'popular'}">热门 Top 5</button>
+      </div>
+      ${sampleNote}
+      <div class="daily-choice-list">
+        ${choices.length
+          ? choices.map((player, index) => dailyChoiceHtml(player, index, dailyDetailTab === 'low' && index === 0, dailyDetailTab === 'popular')).join('')
+          : '<p class="text-muted">当前样本不足，暂无可展示排名。</p>'}
+      </div>
+      ${dailyDetailTab === 'low' && (cell.candidateCount || 0) > lowChoices.length
+        ? `<span class="text-muted">已展示 10 个最低候选，共 ${cell.candidateCount} 名合法球员。</span>`
+        : ''}
     `;
   }
 
   function renderDaily() {
     if (!dailyData?.ok) return;
     const cells = Object.values(dailyData.cells || {}).sort((first, second) => first.key.localeCompare(second.key));
-    const { selected, used } = chooseDailyLineup(cells);
+    const { selected } = chooseDailyLineup(cells);
     const currentTotal = cells.reduce((sum, cell) => sum + Number(selected.get(cell.key)?.currentPct || 0), 0);
     const projectedTotal = cells.reduce((sum, cell) => sum + Number(selected.get(cell.key)?.projectedPct || 0), 0);
     const zeroPicks = cells.filter((cell) => selected.get(cell.key)?.currentCount === 0).length;
@@ -1596,10 +2304,12 @@ html>body{padding:0}</style>
       hour12: false
     }).format(new Date(dailyData.updatedAt));
 
+    $('#hero-live').innerHTML = '<i class="live-dot" aria-hidden="true"></i>今日数据已同步';
+    $('#hero-rarity').textContent = formatPct(currentTotal);
     $('#daily-status').innerHTML = `
       <span class="viz-badge">题目日期 ${escapeHtml(dailyData.date)}</span>
       <strong>已同步虎扑社区数据</strong>
-      <span class="text-muted">北京时间 ${escapeHtml(updated)} · ${dailyData.totalPlayers || '—'} 名玩家</span>
+      <span class="text-muted">北京时间 ${escapeHtml(updated)} · ${dailyData.totalPlayers || '—'} 名完成玩家</span>
       <a class="btn" href="https://activity-static.hupu.com/colorbox-activities/activity-project-ai-1783858284068/index.html?night=1" target="_blank" rel="noopener noreferrer">打开原游戏</a>
     `;
     $('#daily-summary').innerHTML = `
@@ -1619,26 +2329,17 @@ html>body{padding:0}</style>
 
     $('#daily-grid').innerHTML = cells.map((cell, index) => {
       const main = selected.get(cell.key);
-      const backups = (cell.candidates || [])
-        .filter((player) => player.playerId !== main?.playerId && !used.has(player.playerId))
-        .slice(0, 3);
-      const backupPool = backups.length >= 2
-        ? backups
-        : (cell.candidates || []).filter((player) => player.playerId !== main?.playerId).slice(0, 3);
+      const zeroClass = main?.currentCount === 0 ? 'zero-value' : '';
       return `
-        <article class="card glass-card daily-cell">
-          <div class="daily-cell-heading">
-            <span class="viz-badge">第 ${index + 1} 格</span>
-            <h3>${escapeHtml(categoryLabel(cell.row))} × ${escapeHtml(categoryLabel(cell.column))}</h3>
-            <span class="text-muted">本格社区提交 ${cell.total || 0} 次</span>
-          </div>
-          ${dailyPlayerHtml(main, '最低主选', true)}
-          <div class="backup-list">
-            ${backupPool.map((player, backupIndex) => dailyPlayerHtml(player, `备选 ${backupIndex + 1}`)).join('')}
-          </div>
-        </article>
+        <button class="daily-cell-button ${cell.key === activeDailyCellKey ? 'is-active' : ''}" type="button" data-cell-key="${escapeHtml(cell.key)}" aria-label="查看第 ${index + 1} 格答案">
+          <span class="cell-index">${String(index + 1).padStart(2, '0')}</span>
+          <span class="cell-prompt">${escapeHtml(categoryLabel(cell.row))}<br>× ${escapeHtml(categoryLabel(cell.column))}</span>
+          <strong class="cell-player">${escapeHtml(main ? playerDisplayName(main) : '暂无候选')}</strong>
+          <strong class="cell-rarity-value ${zeroClass}">${main?.currentCount === 0 ? '0 人选择' : formatPct(main?.currentPct || 0)}</strong>
+        </button>
       `;
     }).join('');
+    renderDailyDetail(cells, selected);
   }
 
   async function refreshDaily() {
@@ -1647,11 +2348,15 @@ html>body{padding:0}</style>
     const button = $('#daily-refresh');
     button.disabled = true;
     button.textContent = '正在刷新…';
-    if (!dailyData) $('#daily-status').textContent = '正在读取今日题目与社区稀有度…';
+    if (!dailyData) $('#daily-status').textContent = '正在读取当前题目与社区稀有度…';
     try {
       const response = await fetch('/api/hupu-daily', { cache: 'no-store' });
       const payload = await response.json();
       if (!response.ok || !payload.ok) throw new Error(payload.error || '实时数据暂时不可用');
+      if (dailyData?.date && dailyData.date !== payload.date) {
+        activeDailyCellKey = '0_0';
+        dailyDetailTab = 'low';
+      }
       dailyData = payload;
       renderDaily();
       renderPair();
@@ -1659,20 +2364,37 @@ html>body{padding:0}</style>
     } catch (error) {
       const message = error instanceof Error ? error.message : '实时数据暂时不可用';
       if (dailyData?.ok) {
-        $('#daily-status').innerHTML = `<strong>刷新失败，继续显示上次数据。</strong><span class="text-muted">${escapeHtml(message)}</span>`;
+        $('#hero-live').innerHTML = '<i class="live-dot" aria-hidden="true"></i>数据暂未更新';
+        $('#daily-status').innerHTML = `<strong>数据暂未更新，继续显示最近一次成功结果。</strong><span class="text-muted">${escapeHtml(message)}</span>`;
       } else {
-        $('#daily-status').innerHTML = `<strong>今日实时数据暂时无法读取。</strong><span class="text-muted">${escapeHtml(message)}；球队与条件查询仍可使用静态冷门排序。</span>`;
+        $('#hero-live').innerHTML = '<i class="live-dot" aria-hidden="true"></i>等待实时数据';
+        $('#hero-rarity').textContent = '等待中';
+        $('#daily-status').innerHTML = `<strong>当前实时数据暂时无法读取。</strong><span class="text-muted">${escapeHtml(message)}；球队与条件查询仍可使用冷门推荐。</span>`;
         $('#daily-summary').innerHTML = '';
         $('#daily-grid').innerHTML = '';
+        $('#daily-detail').innerHTML = '<p class="text-muted">数据恢复后会自动显示当前谜题与推荐。</p>';
       }
     } finally {
       dailyLoading = false;
       button.disabled = false;
-      button.textContent = '刷新实时稀有度';
+      button.textContent = '刷新实时数据';
     }
   }
 
   $('#daily-refresh').addEventListener('click', refreshDaily);
+  $('#daily-grid').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-cell-key]');
+    if (!button) return;
+    activeDailyCellKey = button.dataset.cellKey;
+    dailyDetailTab = 'low';
+    renderDaily();
+  });
+  $('#daily-detail').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-daily-tab]');
+    if (!button) return;
+    dailyDetailTab = button.dataset.dailyTab;
+    renderDaily();
+  });
 
   $('#achievement-list').innerHTML = D.a.map(([no, category, name, trigger, tiers, count, versatile, obscure, tip], index) => `
     <details ${index === 0 ? 'open' : ''}>

@@ -4,7 +4,8 @@ export const dynamic = "force-dynamic";
 
 const HUPU_APP_URL =
   "https://activity-static.hupu.com/colorbox-activities/activity-project-ai-1783858284068/__ai_app.html";
-const HUPU_API_BASE = "https://ricewell.ccwu.cc";
+const HUPU_API_FALLBACK =
+  "https://ai-1786089705005-d3elk8v941afabd-1252166086.ap-shanghai.app.tcloudbase.com/immaculate_api";
 
 type Team = {
   teamId: number;
@@ -36,6 +37,8 @@ type PlayerRow = [
 type PuzzleStats = {
   total_players?: number;
   cell_sums?: Record<string, number>;
+  cells?: Record<string, Array<{ pid: number; cnt: number }>>;
+  mins?: Record<string, Array<{ pid: number; cnt: number }>>;
 };
 
 type RarityResponse = {
@@ -118,6 +121,13 @@ function extractJson<T>(source: string, variable: string): T {
     }
   }
   throw new Error(`虎扑数据变量 ${variable} 未闭合`);
+}
+
+function extractApiBase(source: string) {
+  const match = source.match(
+    /https:\/\/[^"'\s]+\/immaculate_api/,
+  );
+  return match?.[0] || HUPU_API_FALLBACK;
 }
 
 function seededRandom(seedValue: number) {
@@ -308,6 +318,7 @@ export async function GET() {
 
   try {
     const source = await fetchText(HUPU_APP_URL);
+    const apiBase = extractApiBase(source);
     const players = extractJson<PlayerRow[]>(source, "PD");
     const teams = extractJson<Team[]>(source, "TD");
     const categories = extractJson<Category[]>(source, "OC");
@@ -327,10 +338,10 @@ export async function GET() {
       pid: 0,
     }));
     const [statsResponse, rarityResponse] = await Promise.all([
-      fetch(`${HUPU_API_BASE}/api/puzzle-stats?gid=${date}`, {
+      fetch(`${apiBase}/puzzle-stats?gid=${date}`, {
         cache: "no-store",
       }),
-      fetch(`${HUPU_API_BASE}/api/cell-rarity`, {
+      fetch(`${apiBase}/cell-rarity`, {
         method: "POST",
         cache: "no-store",
         headers: { "Content-Type": "application/json" },
@@ -354,7 +365,7 @@ export async function GET() {
           (sum, count) => sum + Number(count || 0),
           0,
         );
-        const candidates = players
+        const candidatePool = players
           .filter(
             (player) =>
               playerMatches(player, rowCategory, playerBits) &&
@@ -377,15 +388,27 @@ export async function GET() {
               first.currentCount - second.currentCount ||
               first.fame - second.fame ||
               first.name.localeCompare(second.name, "zh-CN"),
+          );
+
+        const candidates = candidatePool.slice(0, 24);
+        const popularCandidates = [...candidatePool]
+          .filter((player) => player.currentCount > 0)
+          .sort(
+            (first, second) =>
+              second.currentCount - first.currentCount ||
+              second.fame - first.fame ||
+              first.name.localeCompare(second.name, "zh-CN"),
           )
-          .slice(0, 16);
+          .slice(0, 5);
 
         cells[key] = {
           key,
           row: rowCategory,
           column: columnCategory,
           total,
+          candidateCount: candidatePool.length,
           candidates,
+          popularCandidates,
         };
       }
     }
@@ -396,6 +419,7 @@ export async function GET() {
         date,
         updatedAt,
         sourceUrl: HUPU_APP_URL,
+        upstreamApi: apiBase,
         totalPlayers: stats.total_players || 0,
         cellSums: stats.cell_sums || {},
         rows: puzzle.rows,

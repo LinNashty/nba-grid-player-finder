@@ -33,22 +33,29 @@ test("server-renders the NBA player query shell", async () => {
   const html = await response.text();
   assert.match(html, /<title>NBA 梦幻九宫格球员查询<\/title>/i);
   assert.match(html, /src="\/nba-guide\.html"/i);
-  assert.match(html, /直接进入球队交集查询/);
+  assert.match(html, /直接进入今日最低稀有度九宫格/);
   assert.match(html, /http:\/\/localhost\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|react-loading-skeleton/);
 });
 
 test("ships the complete player database and social assets", async () => {
-  const [guide, og, favicon] = await Promise.all([
-    readFile(new URL("../public/nba-guide.html", import.meta.url), "utf8"),
+  const guide = await readFile(
+    new URL("../public/nba-guide.html", import.meta.url),
+    "utf8",
+  );
+  await Promise.all([
     access(new URL("../public/og.png", import.meta.url)),
     access(new URL("../public/favicon.png", import.meta.url)),
+    access(new URL("../public/arena.png", import.meta.url)),
   ]);
 
   assert.match(guide, /搜索 5,135 名球员/);
   assert.match(guide, /球队交集查询/);
   assert.match(guide, /条件答案查询/);
   assert.match(guide, /NBA 梦幻九宫格球员查询/);
+  assert.match(guide, /THE DAILY EDIT/);
+  assert.match(guide, /热门 Top 5/);
+  assert.match(guide, /arena\.png/);
 
   await assert.rejects(access(new URL("../app/_sites-preview", templateRoot)));
 });
