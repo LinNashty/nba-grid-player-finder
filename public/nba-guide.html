@@ -1586,9 +1586,9 @@ html>body{padding:0}</style>
 
   #nba-grid-glass-mobile .daily-dashboard {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.28fr);
     gap: 16px;
-    align-items: start;
+    align-items: stretch;
   }
 
   #nba-grid-glass-mobile .daily-grid {
@@ -1693,6 +1693,7 @@ html>body{padding:0}</style>
 
   #nba-grid-glass-mobile .daily-choice-list {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
 
@@ -1857,6 +1858,10 @@ html>body{padding:0}</style>
     }
 
     #nba-grid-glass-mobile .daily-dashboard {
+      grid-template-columns: 1fr;
+    }
+
+    #nba-grid-glass-mobile .daily-choice-list {
       grid-template-columns: 1fr;
     }
 
